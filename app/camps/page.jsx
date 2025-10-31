@@ -31,35 +31,44 @@ export default function Camps() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+  e.preventDefault();
 
     try {
-      console.log("Dane do wysłania:", formData)
+      console.log("Dane do wysłania:", formData);
 
-      const response = { ok: true } 
-      
+      const response = await fetch("/api/sendForm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
       if (response.ok) {
-        setSubmitted(true)
+        setSubmitted(true);
         setFormData({
-            participantName: "",
-            dateOfBirth: "",
-            pesel: "",
-            participantPhone: "",
-            clubName: "",
-            trainingLevel: "1",
-            height: "",
-            allergies: "",
-            parentEmail: "",
-            parentPhone: "",
-            invoiceRequest: false,
-            invoiceDetails: "",
-        })
-        setTimeout(() => setSubmitted(false), 5000)
+          participantName: "",
+          dateOfBirth: "",
+          pesel: "",
+          participantPhone: "",
+          clubName: "",
+          trainingLevel: "1",
+          height: "",
+          allergies: "",
+          parentEmail: "",
+          parentPhone: "",
+          invoiceRequest: false,
+          invoiceDetails: "",
+        });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        console.error("Błąd HTTP:", response.statusText);
+        alert("Wystąpił błąd podczas wysyłania formularza.");
       }
     } catch (error) {
-      console.error("Błąd podczas wysyłania formularza:", error) 
+      console.error("Błąd podczas wysyłania formularza:", error);
+      alert("Nie udało się wysłać danych. Spróbuj ponownie.");
     }
-  }
+  };
+
 
   const commonInputClasses = "w-full px-4 py-2 rounded-lg bg-black border border-[#00ff00]/30 text-white focus:outline-none focus:border-[#00ff00] focus:ring-2 focus:ring-[#00ff00]/50"
   const labelClasses = "block text-sm font-bold text-[#00ff00] mb-2"
