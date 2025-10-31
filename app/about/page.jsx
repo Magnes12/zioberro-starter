@@ -12,7 +12,7 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <img src="/professional-goalkeeper-portrait.jpg" alt="Dawid Zioberro" className="rounded-lg border-glow w-full" />
+              <img src="/fot-getty.jpg" alt="Dawid Zioberro" className="rounded-lg border-glow w-full" />
             </div>
             <div>
               <h2 className="text-3xl font-bold text-[#00ff00] mb-6">Dawid "Zioberro" Kowalski</h2>
@@ -40,7 +40,7 @@ export default function About() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             {[
               { label: "Lat w Sporcie", value: "15+" }, 
-              { label: "Subskrybentów YouTube", value: "250K+" },
+              { label: "Subskrybentów YouTube", value: "120K+" },
               { label: "Sesji Treningowych", value: "1000+" },
               { label: "Zorganizowanych Obozów", value: "50+" },
             ].map((stat, i) => (

@@ -23,7 +23,7 @@ export default function Gallery() {
                 className="group relative h-64 rounded-lg overflow-hidden border border-[#00ff00]/30 glow-hover transition-all duration-300 hover:border-[#00ff00]/60"
               >
                 <img
-                  src={`/goalkeeper-training-moment-.jpg?height=300&width=400&query=goalkeeper training moment ${item.id}`}
+                  src={`/wojciech-szczesny-koniec-kariery.jpg?height=300&width=400&query=goalkeeper training moment ${item.id}`}
                   alt={`Element galerii ${item.id}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
