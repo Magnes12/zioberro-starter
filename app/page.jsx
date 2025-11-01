@@ -39,7 +39,7 @@ export default function Home() {
           </div>
 
           <div className="absolute inset-0 z-0">
-            <img src="/a9c757503a5c102f8c6282xxc030.jpeg" alt="Bramkarz Zioberro w akcji" className="w-full h-full object-cover" />
+            <img src="/4Q8A2573ig 2.JPG" alt="Bramkarz Zioberro w akcji" className="w-full h-full object-cover" />
 
             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_center,rgba(0,255,0,0.1)_0%,rgba(0,0,0,0.8)_80%)]" />
@@ -113,7 +113,7 @@ export default function Home() {
 
               <div className="hidden md:block relative h-[350px]">
                 <img
-                  src="/6904c9e8cc68d.JPG"
+                  src="/IMG_9565.JPG"
                   alt="Prezentacja zawodnika"
                   className="w-full h-full object-cover rounded-lg border-glow"
                 />

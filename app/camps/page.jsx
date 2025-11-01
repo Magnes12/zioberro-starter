@@ -1,295 +1,96 @@
 "use client"
 
-import { useState } from "react"
+import Link from "next/link"
 
-export default function Camps() {
-  const [formData, setFormData] = useState({
-    participantName: "",
-    dateOfBirth: "",
-    pesel: "",
-    participantPhone: "",
-    clubName: "",
-    trainingLevel: "1",
-    height: "",
-    allergies: "",
-    
-    parentEmail: "",
-    parentPhone: "",
-
-    invoiceRequest: false,
-    invoiceDetails: "",
-  })
-
-  const [submitted, setSubmitted] = useState(false)
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }))
-  }
-
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
-    try {
-      console.log("Dane do wysłania:", formData);
-
-      const response = await fetch("/api/sendForm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-        setFormData({
-          participantName: "",
-          dateOfBirth: "",
-          pesel: "",
-          participantPhone: "",
-          clubName: "",
-          trainingLevel: "1",
-          height: "",
-          allergies: "",
-          parentEmail: "",
-          parentPhone: "",
-          invoiceRequest: false,
-          invoiceDetails: "",
-        });
-        setTimeout(() => setSubmitted(false), 5000);
-      } else {
-        console.error("Błąd HTTP:", response.statusText);
-        alert("Wystąpił błąd podczas wysyłania formularza.");
-      }
-    } catch (error) {
-      console.error("Błąd podczas wysyłania formularza:", error);
-      alert("Nie udało się wysłać danych. Spróbuj ponownie.");
-    }
-  };
-
-
-  const commonInputClasses = "w-full px-4 py-2 rounded-lg bg-black border border-[#00ff00]/30 text-white focus:outline-none focus:border-[#00ff00] focus:ring-2 focus:ring-[#00ff00]/50"
-  const labelClasses = "block text-sm font-bold text-[#00ff00] mb-2"
-
+export default function CampInfoPage() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black text-white">
+      <section className="pt-32 pb-16 px-4 border-b border-[#00ff00]/30">
+        <div className="max-w-5xl mx-auto space-y-8">
+          <h1 className="text-5xl md:text-6xl font-bold text-[#00ff00] mb-4">ZI0BI CAMP – ZIMOWA EDYCJA 2025</h1>
 
-      <section className="pt-32 pb-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 glow-text">Obozy Treningowe</h1> 
-          <p className="text-gray-400 text-lg mb-16">
-            Wybierz swoją drogę do doskonałości. Dołącz do jednego z naszych specjalistycznych programów szkoleniowych dla bramkarzy.
+          <p className="text-lg text-gray-300">
+            <strong>Data:</strong> 19–23 grudnia 2025<br />
+            <strong>Godziny:</strong> 8:00–17:00<br />
+            <strong>Miejsce:</strong> Klub Sportowy Błękit Żołynia, ul. Białobrzeska 158A, 37-110 Żołynia
           </p>
 
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center glow-text">Zarejestruj Uczestnika na Obóz</h2>
+          <div>
+            <h2 className="text-3xl font-semibold text-[#00ff00] mb-4">OFERTA</h2>
+            <ul className="list-disc list-inside text-gray-300 space-y-2">
+              <li>2 treningi dziennie (dopasowane do poziomu grup)</li>
+              <li>Wykłady teoretyczne – analiza gry bramkarza</li>
+              <li>Warsztaty z dietetykiem</li>
+              <li>Q&A z Zioberro</li>
+              <li>Obiad + stół potreningowy (owoce, batony)</li>
+              <li>Goście ze świata sportu</li>
+              <li>Pakiet obozowy: 2x koszulki, ortalion, bidon</li>
+              <li>Loteria Bramkarska</li>
+              <li>Bitwa Bramkarska</li>
+            </ul>
+          </div>
 
-            {submitted && (
-              <div className="mb-8 p-4 rounded-lg bg-[#00ff00]/20 border border-[#00ff00]/50 text-[#00ff00] text-center font-semibold animate-pulse">
-                ✓ Rejestracja wysłana! Skontaktujemy się z Państwem wkrótce.
-              </div>
-            )}
+          <p className="italic text-gray-400">
+            *Rezerwacji dokonujemy poprzez wypełnienie formularza zgłoszeniowego na stronie. Szczegółowe informacje dotyczące rezerwacji oraz płatności znajdą Państwo poniżej.*
+          </p>
+        </div>
+      </section>
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-8 bg-[#00ff00]/5 p-8 rounded-lg border border-[#00ff00]/30"
-            >
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold text-[#00ff00] border-b border-[#00ff00]/30 pb-2">Dane Uczestnika</h3>
-                
-                <div>
-                  <label htmlFor="participantName" className={labelClasses}>Nazwisko i Imię - Uczestnik</label>
-                  <input
-                    id="participantName"
-                    type="text"
-                    name="participantName"
-                    required
-                    value={formData.participantName}
-                    onChange={handleChange}
-                    className={commonInputClasses}
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="dateOfBirth" className={labelClasses}>Data Urodzenia - Uczestnik</label>
-                  <input
-                    id="dateOfBirth"
-                    type="date"
-                    name="dateOfBirth"
-                    required
-                    value={formData.dateOfBirth}
-                    onChange={handleChange}
-                    className={commonInputClasses}
-                  />
-                </div>
+      <section className="py-16 px-4 border-b border-[#00ff00]/30">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <h2 className="text-3xl font-semibold text-[#00ff00] mb-4">KOSZTA</h2>
 
-                <div>
-                  <label htmlFor="pesel" className={labelClasses}>Numer PESEL - Zawodnik (Wymagany do ubezpieczenia)</label>
-                  <input
-                    id="pesel"
-                    type="text"
-                    name="pesel"
-                    maxLength="11"
-                    pattern="\d{11}"
-                    title="PESEL musi składać się z 11 cyfr."
-                    required
-                    value={formData.pesel}
-                    onChange={handleChange}
-                    className={commonInputClasses}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="clubName" className={labelClasses}>Nazwa Klubu - Uczestnik (aktualny lub ostatni)</label>
-                  <input
-                    id="clubName"
-                    type="text"
-                    name="clubName"
-                    value={formData.clubName}
-                    onChange={handleChange}
-                    className={commonInputClasses}
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="participantPhone" className={labelClasses}>Numer Telefonu - Uczestnik</label>
-                      <input
-                        id="participantPhone"
-                        type="tel"
-                        name="participantPhone"
-                        value={formData.participantPhone}
-                        onChange={handleChange}
-                        className={commonInputClasses}
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="height" className={labelClasses}>Wzrost (cm) - Uczestnik</label>
-                      <input
-                        id="height"
-                        type="number"
-                        name="height"
-                        required
-                        min="50"
-                        max="250"
-                        value={formData.height}
-                        onChange={handleChange}
-                        className={commonInputClasses}
-                      />
-                    </div>
-                </div>
-
-                <div>
-                  <label htmlFor="trainingLevel" className={labelClasses}>Ilość Treningów Bramkarskich (na tydzień, 1-5)</label>
-                  <select
-                    id="trainingLevel"
-                    name="trainingLevel"
-                    value={formData.trainingLevel}
-                    onChange={handleChange}
-                    className={commonInputClasses}
-                  >
-                    {[1, 2, 3, 4, 5].map(level => (
-                        <option key={level} value={String(level)}>
-                            {level}
-                        </option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div>
-                  <label htmlFor="allergies" className={labelClasses}>Czy Uczestnik ma uczulenia/diety? (produkty/składniki pokarmowe)</label>
-                  <textarea
-                    id="allergies"
-                    name="allergies"
-                    value={formData.allergies}
-                    onChange={handleChange}
-                    rows="2"
-                    placeholder="Wpisz 'Nie dotyczy' lub szczegóły uczuleń/wymagań dietetycznych"
-                    className={commonInputClasses}
-                  />
-                </div>
-
-              </div>
-
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold text-[#00ff00] border-b border-[#00ff00]/30 pb-2">Dane Rodzica/Opiekuna</h3>
-
-                <div>
-                  <label htmlFor="parentEmail" className={labelClasses}>Adres E-mail - Rodzic</label>
-                  <input
-                    id="parentEmail"
-                    type="email"
-                    name="parentEmail"
-                    required
-                    value={formData.parentEmail}
-                    onChange={handleChange}
-                    className={commonInputClasses}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="parentPhone" className={labelClasses}>Numer Telefonu - Rodzic</label>
-                  <input
-                    id="parentPhone"
-                    type="tel"
-                    name="parentPhone"
-                    required
-                    value={formData.parentPhone}
-                    onChange={handleChange}
-                    className={commonInputClasses}
-                  />
-                </div>
-              </div>
-
-
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold text-[#00ff00] border-b border-[#00ff00]/30 pb-2">Wybór Obozu i Faktura</h3>
-
-                <div className="flex items-center space-x-3">
-                    <input
-                        id="invoiceRequest"
-                        type="checkbox"
-                        name="invoiceRequest"
-                        checked={formData.invoiceRequest}
-                        onChange={handleChange}
-                        className="h-5 w-5 text-[#00ff00] bg-black border-[#00ff00] rounded focus:ring-[#00ff00] cursor-pointer"
-                    />
-                    <label htmlFor="invoiceRequest" className="text-white font-medium cursor-pointer">
-                        Czy chcą Państwo Fakturę VAT?
-                    </label>
-                </div>
-
-                {formData.invoiceRequest && (
-                    <div>
-                        <label htmlFor="invoiceDetails" className={labelClasses}>Dane do Faktury (Nazwa firmy, NIP, Adres)</label>
-                        <textarea
-                            id="invoiceDetails"
-                            name="invoiceDetails"
-                            required
-                            value={formData.invoiceDetails}
-                            onChange={handleChange}
-                            rows="3"
-                            placeholder="Proszę podać pełne dane do faktury: Nazwa firmy, NIP, Adres"
-                            className={commonInputClasses}
-                        />
-                    </div>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                className="w-full px-6 py-3 bg-[#00ff00] text-black font-bold rounded-lg glow-hover transition-all duration-300 hover:scale-105"
-              >
-                Wyślij Rejestrację
-              </button>
-            </form>
+          <div className="bg-[#00ff00]/5 border border-[#00ff00]/30 rounded-lg p-6 space-y-3">
+            <p><strong className="text-[#00ff00]">1300 zł</strong> – zawodnicy CRB / Szkółki Bramkarskiej Jakub Lichoń / Błękit Żołynia</p>
+            <p><strong className="text-[#00ff00]">1650 zł</strong> – zaliczka do 15.11.2025</p>
+            <p><strong className="text-[#00ff00]">1750 zł</strong> – zaliczka do 30.11.2025</p>
+            <p><strong className="text-[#00ff00]">1800 zł</strong> – do rozpoczęcia</p>
+            <p className="text-sm text-gray-400 mt-4">*Zaliczka 500 zł płatna do 3 dni od dokonania zgłoszenia.</p>
           </div>
         </div>
       </section>
 
+      <section className="py-16 px-4 border-b border-[#00ff00]/30">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <h2 className="text-3xl font-semibold text-[#00ff00] mb-4">ZAPISY I PŁATNOŚCI</h2>
+
+          <ol className="list-decimal list-inside space-y-2 text-gray-300">
+            <li>Zapoznanie się z ofertą, płatnościami oraz zasadami rezygnacji.</li>
+            <li>Wypełnienie formularza zgłoszeniowego.</li>
+            <li>Potwierdzenie mailowe udziału (otrzymasz w ciągu 72h).</li>
+            <li>Wpłata zaliczki do 3 dni od zgłoszenia (brak wpłaty = anulacja rezerwacji).</li>
+            <li>Wpłata pełnej kwoty do 14 dni przed rozpoczęciem – <strong>do 5.12.2025</strong>.</li>
+            <li>Wpłaty należy dokonywać na dane organizatora (uzupełnić dane firmy, konto, NIP itp.).</li>
+          </ol>
+
+          <p className="text-gray-400 text-sm italic">
+            W tytule przelewu prosimy wpisać: <br />
+            <strong>Nazwisko i imię uczestnika – Ziobi Camp</strong>
+          </p>
+
+          <div className="pt-6">
+            <Link
+              href="/camps/register"
+              className="inline-block bg-[#00ff00] text-black font-bold px-6 py-3 rounded-lg hover:scale-105 transition-transform"
+            >
+              Przejdź do formularza rejestracyjnego →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-4">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <h2 className="text-3xl font-semibold text-[#00ff00] mb-4">Rezygnacja i Zwroty</h2>
+          <p className="text-gray-300">
+            W przypadku rezygnacji prosimy o kontakt mailowy (adres do uzupełnienia).
+          </p>
+          <ul className="list-disc list-inside text-gray-400 space-y-2">
+            <li>Rezygnacja powyżej 21 dni przed rozpoczęciem – pełen zwrot.</li>
+            <li>Rezygnacja do 21 dni przed rozpoczęciem – potrącenie zaliczki 500 zł.</li>
+          </ul>
+        </div>
+      </section>
     </div>
   )
 }

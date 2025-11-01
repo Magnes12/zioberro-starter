@@ -12,7 +12,7 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <img src="/fot-getty.jpg" alt="Dawid Zioberro" className="rounded-lg border-glow w-full" />
+              <img src="/4Q8A2612ig.JPG" alt="Dawid Zioberro" className="rounded-lg border-glow w-full" />
             </div>
             <div>
               <h2 className="text-3xl font-bold text-[#00ff00] mb-6">Dawid "Zioberro" Kowalski</h2>
